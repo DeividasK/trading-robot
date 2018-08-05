@@ -9,5 +9,8 @@
   },
   "author": "Deividas Karžinauskas",
   "license": "ISC",
-  "devDependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "node-fetch": "^2.2.0"
+  }
 }
