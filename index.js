@@ -3,58 +3,36 @@ import "source-map-support/register";
 import { logError } from "./utils/logger";
 import { request } from "./request";
 
-async function login() {
-  const API_KEY = process.env.IG_API_KEY;
-  const API_URL = process.env.IG_API_URL;
-  const IDENTIFIER = process.env.IG_IDENTIFIER;
-  const PASSWORD = process.env.IG_PASSWORD;
+async function getAccounts() {
+  const API_KEY = process.env.API_KEY;
+  const API_URL = process.env.API_URL;
+  // const IDENTIFIER = process.env.IDENTIFIER;
+  // const PASSWORD = process.env.PASSWORD;
 
   try {
-    const response = await request(`${API_URL}/session`, {
-      body: JSON.stringify({
-        identifier: IDENTIFIER,
-        password: PASSWORD,
-      }),
-      method: "POST",
-      headers: {
-        "X-IG-API-KEY": API_KEY,
-      },
-    });
+    const response = await request(`/accounts`);
 
-    console.log(`response`, response);
-    const {
-      accountId,
-      oauthToken: { access_token },
-    } = response;
-    console.log(`access_token`, access_token);
+    const { accounts } = response;
 
-    return { token: access_token, accountId };
+    return accounts;
   } catch (error) {
     logError(error);
   }
 }
 
 async function openPositions() {
-  const API_KEY = process.env.IG_API_KEY;
-  const API_URL = process.env.IG_API_URL;
-
   try {
-    const { accountId, token } = await login();
-    const response = await request(`${API_URL}/positions`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "IG-ACCOUNT-ID": accountId,
-        "X-IG-API-KEY": API_KEY,
-      },
-    });
+    const accounts = await getAccounts();
+    console.log(`accounts`, accounts);
+    const accountId = accounts[0].id;
+    const response = await request(`/accounts/${accountId}/positions`);
     console.log(`received response`, response);
   } catch (error) {
     logError(error);
   }
 }
 
-login();
-// openPositions();
+openPositions();
 
 // async function getHistoricalData() {
 //   try {
