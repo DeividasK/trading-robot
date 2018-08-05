@@ -1,7 +1,8 @@
+const Dotenv = require("dotenv-webpack");
+
 module.exports = {
   devtool: "inline-source-map",
   mode: "development",
-  target: "node",
   module: {
     rules: [
       {
@@ -11,4 +12,7 @@ module.exports = {
       },
     ],
   },
+  plugins: [new Dotenv()],
+  target: "node",
+  watch: true,
 };

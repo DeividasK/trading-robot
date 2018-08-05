@@ -1,4 +1,11 @@
-node_modules
 .cache
 .vscode
+
+# 3rd party libs
+node_modules
+
+# Auto-generated
 dist
+
+# Environmental variables
+.env
