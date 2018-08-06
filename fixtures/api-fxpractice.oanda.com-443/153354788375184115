@@ -1,0 +1,17 @@
+GET /v3/instruments/EUR_GBP/candles?count=7&granularity=D
+content-type: application/json
+authorization: Bearer c3d866e94969a89bfd0385d05718f465-18482d85cac7ffa6f1d6c734a22adc21
+accept: */*
+accept-encoding: gzip,deflate
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Authorization, Content-Type, Accept-Datetime-Format, OANDA-Agent, ETag
+access-control-allow-methods: PUT, PATCH, POST, GET, OPTIONS, DELETE
+access-control-allow-origin: *
+access-control-expose-headers: ETag
+content-length: 1013
+content-type: application/json
+requestid: 24446564532588423
+connection: close
+
+{"instrument":"EUR_GBP","granularity":"D","candles":[{"complete":true,"volume":12962,"time":"2018-07-26T21:00:00.000000000Z","mid":{"o":"0.88826","h":"0.88992","l":"0.88740","c":"0.88930"}},{"complete":true,"volume":17941,"time":"2018-07-29T21:00:00.000000000Z","mid":{"o":"0.88882","h":"0.89188","l":"0.88810","c":"0.89138"}},{"complete":true,"volume":14453,"time":"2018-07-30T21:00:00.000000000Z","mid":{"o":"0.89132","h":"0.89360","l":"0.89048","c":"0.89066"}},{"complete":true,"volume":13837,"time":"2018-07-31T21:00:00.000000000Z","mid":{"o":"0.89103","h":"0.89174","l":"0.88833","c":"0.88842"}},{"complete":true,"volume":17769,"time":"2018-08-01T21:00:00.000000000Z","mid":{"o":"0.88860","h":"0.89249","l":"0.88548","c":"0.89009"}},{"complete":true,"volume":16098,"time":"2018-08-02T21:00:00.000000000Z","mid":{"o":"0.89038","h":"0.89191","l":"0.88936","c":"0.88966"}},{"complete":false,"volume":4260,"time":"2018-08-05T21:00:00.000000000Z","mid":{"o":"0.88958","h":"0.89217","l":"0.88901","c":"0.89175"}}]}

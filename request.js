@@ -8,7 +8,6 @@ function checkStatus(response) {
   if (response.status > 199 && response.status < 300) {
     return response.json();
   }
-  console.log(`response`, response);
 
   throw new Error(
     `Response status ${response.status}. Error ${response.statusText}.`,
