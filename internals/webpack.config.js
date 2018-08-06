@@ -10,9 +10,15 @@ module.exports = {
         test: /\.mjs$/,
         use: [],
       },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader",
+        },
+      },
     ],
   },
   plugins: [new Dotenv()],
   target: "node",
-  watch: true,
 };

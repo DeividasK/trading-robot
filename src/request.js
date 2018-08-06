@@ -1,8 +1,8 @@
 import { merge } from "lodash";
 import fetch from "node-fetch";
 
-const API_URL = process.env.API_URL;
-const API_KEY = process.env.API_KEY;
+const API_URL = process.env.API_URL || "";
+const API_KEY = process.env.API_KEY || "";
 
 function checkStatus(response) {
   if (response.status > 199 && response.status < 300) {
@@ -14,7 +14,7 @@ function checkStatus(response) {
   );
 }
 
-export async function request(endpoint, options) {
+export async function request(endpoint: string, options: any) {
   const defaultOptions = {
     headers: {
       "Content-Type": "application/json",
