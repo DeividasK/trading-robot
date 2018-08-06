@@ -64,6 +64,17 @@ async function getPricing() {
   }
 }
 
+function getTrend(currentValue, previousValue) {
+  switch (true) {
+    case currentValue > previousValue:
+      return "buy";
+    case currentValue < previousValue:
+      return "sell";
+    default:
+      return "equal";
+  }
+}
+
 export async function getCandles(instrument, options) {
   try {
     const query = Object.keys(options)
@@ -72,19 +83,30 @@ export async function getCandles(instrument, options) {
         return `${join}${filter}=${options[filter]}`;
       })
       .join("");
-
     const response = await request(
       `/instruments/${instrument}/candles${query}`,
     );
-    const sma = response.candles.reduce((acc, candle) => {
-      if (!candle.complete) {
-        return acc;
-      }
-      return acc + new Number(candle.mid.c) / options.count;
-    }, 0);
 
-    return Number(sma.toFixed(4));
+    return response.candles;
   } catch (error) {
     logError(error);
   }
+}
+
+function getAverage(candles) {
+  return candles
+    .reduce((acc, candle) => {
+      return acc + new Number(candle.mid.c) / candles.length;
+    }, 0)
+    .toFixed(5);
+}
+
+export function getMovingAverage(candles) {
+  const currentAverage = getAverage(candles.slice(1));
+  const previousAverage = getAverage(candles.slice(0, -1));
+
+  return {
+    average: Number(currentAverage),
+    trend: getTrend(currentAverage, previousAverage),
+  };
 }
