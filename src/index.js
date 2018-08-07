@@ -64,14 +64,14 @@ async function getPricing() {
   }
 }
 
-function getTrend(currentValue, previousValue) {
+function getTrend(currentValue, previousValue): Trend {
   switch (true) {
     case currentValue > previousValue:
-      return "buy";
+      return "rising";
     case currentValue < previousValue:
-      return "sell";
+      return "falling";
     default:
-      return "equal";
+      return "ranging";
   }
 }
 
@@ -128,7 +128,7 @@ type CandlestickData = {|
 |};
 
 // http://developer.oanda.com/rest-live-v20/instrument-df/#Candlestick
-type Candlestick = {|
+export type Candlestick = {|
   // The start time of the candlestick
   // http://developer.oanda.com/rest-live-v20/primitives-df/#DateTime
   time: DateTime,
@@ -149,9 +149,11 @@ type Candlestick = {|
   complete: boolean,
 |};
 
+type Trend = "rising" | "falling" | "ranging";
+
 export function getMovingAverage(
   candles: Array<Candlestick>,
-): {| average: number, trend: string |} {
+): {| average: number, trend: Trend |} {
   const currentAverage = getAverage(candles.slice(1));
   const previousAverage = getAverage(candles.slice(0, -1));
 

@@ -34,7 +34,7 @@ describe("getCandles", () => {
 
       expect(getMovingAverage(candles)).toMatchObject({
         average: 0.89125,
-        trend: "buy",
+        trend: "rising",
       });
     });
   });
