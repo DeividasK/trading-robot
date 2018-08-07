@@ -149,7 +149,7 @@ export type Candlestick = {|
   complete: boolean,
 |};
 
-type Trend = "rising" | "falling" | "ranging";
+export type Trend = "rising" | "falling" | "ranging";
 
 export function getMovingAverage(
   candles: Array<Candlestick>,
