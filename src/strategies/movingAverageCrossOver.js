@@ -4,7 +4,7 @@ import { getMovingAverage } from "..";
 import type { Candlestick, Trend } from "..";
 
 type Signal = "buy" | "sell" | "hold";
-type Conditions = { isOpen: boolean, price: number };
+type Conditions = {| isOpen: boolean, price: number |};
 type TradeSignal = {|
   conditions: Conditions,
   reasons: Array<string>,
@@ -39,7 +39,7 @@ function getSignal({
   return "hold";
 }
 
-function getOpenCondition({
+function getIsOpenCondition({
   longTrend,
   signal,
 }: {
@@ -78,7 +78,7 @@ export function movingAverageCrossOver({
 
   return {
     conditions: {
-      isOpen: getOpenCondition({
+      isOpen: getIsOpenCondition({
         longTrend: longTermTrend.trend,
         signal: tradeSignal,
       }),

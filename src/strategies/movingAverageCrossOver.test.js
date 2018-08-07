@@ -1,6 +1,11 @@
 import { getCandles } from "..";
 import { movingAverageCrossOver } from "./movingAverageCrossOver";
 
+// long rising, medium above short -> buy if not open / look for entry
+// long rising, medium below short -> sell if open / look for exit
+// long falling, medium above short -> buy if open / look for exit
+// long falling, medium below short -> sell if not open / look for entry
+
 describe("movingAverageCrossOver", () => {
   describe("when overall trend is rising", () => {
     describe("when slow moving average is rising", () => {
