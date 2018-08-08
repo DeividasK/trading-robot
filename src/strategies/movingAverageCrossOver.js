@@ -1,7 +1,6 @@
 import { takeRight } from "lodash";
 
 import { getMovingAverage } from "../utils";
-import type { Trend } from "../utils";
 
 function getSignal({
   longTrend,

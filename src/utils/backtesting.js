@@ -1,17 +1,8 @@
 import chalk from "chalk";
-import { getCandles } from ".";
-import { movingAverageCrossOver } from "../strategies/movingAverageCrossOver";
 
-function getSignalColour(signal) {
-  switch (true) {
-    case signal === "buy":
-      return "green";
-    case signal === "sell":
-      return "red";
-    default:
-      return "yellow";
-  }
-}
+import { getCandles } from ".";
+import { logTradeRecommendation } from "./logger";
+import { movingAverageCrossOver } from "../strategies/movingAverageCrossOver";
 
 export async function backtest() {
   const candles = await getCandles("EUR_GBP", { granularity: "D", count: 720 });
@@ -24,12 +15,7 @@ export async function backtest() {
       slowMA: 60,
       trend: 100,
     });
-    const signalColour = getSignalColour(recommendation.signal);
-    // $FlowFixMe
-    const report = chalk[signalColour];
-    console.log(`${report(recommendation.signal.toUpperCase())} signal
-------------`);
-    console.log(recommendation);
-    console.log(`------------`);
+
+    logTradeRecommendation(recommendation);
   });
 }
