@@ -3,14 +3,6 @@ import { takeRight } from "lodash";
 import { getMovingAverage } from "../utils";
 import type { Trend } from "../utils";
 
-type Signal = "buy" | "sell" | "hold";
-type Conditions = {| isOpen: boolean, price: number |};
-type TradeSignal = {|
-  conditions?: Conditions,
-  reasons: Array<string>,
-  signal: Signal,
-|};
-
 function getSignal({
   longTrend,
   mediumTrend,
@@ -82,7 +74,7 @@ export function movingAverageCrossOver({
   fastMA: number,
   slowMA: number,
   trend: number,
-}): TradeSignal {
+}): TradeRecommendation {
   if (candles.length < trend + 1) {
     return {
       reasons: [

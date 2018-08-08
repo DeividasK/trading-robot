@@ -1,4 +1,9 @@
 import "babel-polyfill";
-import { backtest } from "./utils/backtesting";
+import addTimestamps from "console-stamp";
 
-backtest();
+addTimestamps(console, "HH:MM:ss.l]");
+
+import { repeat } from "./utils/repeat";
+import { trade } from "./trader";
+
+repeat(trade);
