@@ -1,12 +1,12 @@
 import { takeRight } from "lodash";
 
-import { getMovingAverage } from "..";
-import type { Candlestick, Trend } from "..";
+import { getMovingAverage } from "../utils";
+import type { Trend } from "../utils";
 
 type Signal = "buy" | "sell" | "hold";
 type Conditions = {| isOpen: boolean, price: number |};
 type TradeSignal = {|
-  conditions: Conditions,
+  conditions?: Conditions,
   reasons: Array<string>,
   signal: Signal,
 |};
@@ -31,6 +31,22 @@ function getSignal({
   if (
     longTrend === "rising" &&
     mediumTrend === "rising" &&
+    shortTrend === "falling"
+  ) {
+    return "buy";
+  }
+
+  if (
+    longTrend === "falling" &&
+    mediumTrend === "falling" &&
+    shortTrend === "rising"
+  ) {
+    return "sell";
+  }
+
+  if (
+    longTrend === "falling" &&
+    mediumTrend === "falling" &&
     shortTrend === "falling"
   ) {
     return "buy";
@@ -67,6 +83,16 @@ export function movingAverageCrossOver({
   slowMA: number,
   trend: number,
 }): TradeSignal {
+  if (candles.length < trend + 1) {
+    return {
+      reasons: [
+        `Not enough data to create a signal. Expected at least ${trend +
+          1} candles, but got ${candles.length}.`,
+      ],
+      signal: "hold",
+    };
+  }
+
   const signal = getMovingAverage(takeRight(candles, fastMA + 1));
   const shortTermTrend = getMovingAverage(takeRight(candles, slowMA + 1));
   const longTermTrend = getMovingAverage(takeRight(candles, trend + 1));
