@@ -1,0 +1,17 @@
+GET /v3/accounts
+content-type: application/json
+authorization: Bearer c3d866e94969a89bfd0385d05718f465-18482d85cac7ffa6f1d6c734a22adc21
+accept: */*
+accept-encoding: gzip,deflate
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Authorization, Content-Type, Accept-Datetime-Format, OANDA-Agent, ETag
+access-control-allow-methods: PUT, PATCH, POST, GET, OPTIONS, DELETE
+access-control-allow-origin: *
+access-control-expose-headers: ETag
+connection: close
+content-length: 53
+content-type: application/json; charset=UTF-8
+requestid: 78490814820476552
+
+{"accounts":[{"id":"101-004-8993504-001","tags":[]}]}

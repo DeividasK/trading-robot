@@ -4,7 +4,7 @@ import { getAccounts } from "./getAccounts";
 import { log, logError } from "../utils/logger";
 import { request } from "../utils/request";
 
-export async function createOrder(instrument: InstrumentName, { options }) {
+export async function createOrder(instrument: InstrumentName) {
   try {
     log(`Creating an order`);
     const accounts = await getAccounts();

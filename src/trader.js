@@ -28,7 +28,7 @@ export async function trade() {
     logTradeRecommendation(tradeRecommendation);
 
     if (orders.length === 0 && positions.length === 0) {
-      await createOrder();
+      await createOrder("EUR_GBP");
     }
   } catch (error) {
     logError(error);

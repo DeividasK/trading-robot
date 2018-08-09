@@ -1,0 +1,17 @@
+GET /v3/accounts/101-004-8993504-001/openPositions
+content-type: application/json
+authorization: Bearer c3d866e94969a89bfd0385d05718f465-18482d85cac7ffa6f1d6c734a22adc21
+accept: */*
+accept-encoding: gzip,deflate
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Authorization, Content-Type, Accept-Datetime-Format, OANDA-Agent, ETag
+access-control-allow-methods: PUT, PATCH, POST, GET, OPTIONS, DELETE
+access-control-allow-origin: *
+access-control-expose-headers: ETag
+content-length: 554
+content-type: application/json
+requestid: 78490814845648287
+connection: close
+
+{"positions":[{"instrument":"EUR_GBP","long":{"units":"2","averagePrice":"0.90039","pl":"0.0000","resettablePL":"0.0000","financing":"0.0000","guaranteedExecutionFees":"0.0000","tradeIDs":["15","17"],"unrealizedPL":"0.0018"},"short":{"units":"0","pl":"0.0000","resettablePL":"0.0000","financing":"0.0000","guaranteedExecutionFees":"0.0000","unrealizedPL":"0.0000"},"pl":"0.0000","resettablePL":"0.0000","financing":"0.0000","commission":"0.0000","guaranteedExecutionFees":"0.0000","unrealizedPL":"0.0018","marginUsed":"0.0600"}],"lastTransactionID":"18"}

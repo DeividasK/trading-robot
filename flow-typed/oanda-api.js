@@ -113,10 +113,10 @@ type PositionSide = {
   units: DecimalNumber,
 
   // Volume-weighted average of the underlying Trade open prices for the Position.
-  averagePrice: PriceValue,
+  averagePrice?: PriceValue,
 
   // List of the open Trade IDs which contribute to the open Position.
-  tradeIDs: Array<TradeID>,
+  tradeIDs?: Array<TradeID>,
 
   // Profit/loss realized by the PositionSide over the lifetime of the Account.
   pl: AccountUnits,
@@ -136,7 +136,7 @@ type PositionSide = {
 
 // The specification of a Position within an Account
 // http://developer.oanda.com/rest-live-v20/position-df/#Position
-type Postion = {|
+type Position = {|
   // The Position’s Instrument.
   instrument: InstrumentName,
   // Profit/loss realized by the Position over the lifetime of the Account.
@@ -161,8 +161,8 @@ type Postion = {|
   guaranteedExecutionFees: AccountUnits,
 
   // The details of the long side of the Position.
-  long?: PositionSide,
+  long: PositionSide,
 
   // The details of the short side of the Position.
-  short?: PositionSide,
+  short: PositionSide,
 |};
