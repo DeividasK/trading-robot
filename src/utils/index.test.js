@@ -1,14 +1,6 @@
-import { getCandles, getMovingAverage } from ".";
+import { getMovingAverage } from ".";
 
 describe("getCandles", () => {
-  it("should return a list of candles for the provided criteria", async () => {
-    const candles = await getCandles("EUR_GBP", {
-      count: 100,
-      granularity: "D",
-    });
-    expect(candles).toHaveLength(100);
-  });
-
   describe("getMovingAverage", () => {
     it("should return an average price and a trend", () => {
       const candles = [

@@ -1,6 +1,6 @@
 import chalk from "chalk";
 
-import { getCandles } from ".";
+import { getCandles } from "../trade-client/getCandles";
 import { logTradeRecommendation } from "./logger";
 import { movingAverageCrossOver } from "../strategies/movingAverageCrossOver";
 

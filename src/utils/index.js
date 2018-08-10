@@ -29,35 +29,6 @@ function getTrend(currentValue, previousValue): Trend {
   }
 }
 
-type GetCandlesOptions = {|
-  granularity: CandlestickGranularity,
-  count: number,
-|};
-
-export async function getCandles(
-  instrument: string,
-  options: GetCandlesOptions,
-): Promise<Array<Candlestick>> {
-  log(`Getting ${instrument} candles`);
-
-  try {
-    const query = Object.keys(options)
-      .map((filter, index) => {
-        const join = index === 0 ? "?" : "&";
-        return `${join}${filter}=${options[filter]}`;
-      })
-      .join("");
-    const response = await request(
-      `/instruments/${instrument}/candles${query}`,
-    );
-
-    return response.candles;
-  } catch (error) {
-    logError(error);
-    return [];
-  }
-}
-
 function getAverage(candles) {
   return candles
     .reduce((acc, candle) => {

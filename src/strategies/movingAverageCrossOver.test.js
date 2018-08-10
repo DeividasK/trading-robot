@@ -1,4 +1,4 @@
-import { getCandles } from "../utils";
+import { getCandles } from "../trade-client/getCandles";
 import { movingAverageCrossOver } from "./movingAverageCrossOver";
 
 // long rising, medium above short -> buy if not open / look for entry

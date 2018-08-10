@@ -1,6 +1,6 @@
 import { createOrder } from "./trade-client/createOrder";
 import { getOrders } from "./trade-client/getOrders";
-import { getCandles } from "./utils";
+import { getCandles } from "./trade-client/getCandles";
 import { log, logError, logTradeRecommendation } from "./utils/logger";
 import { movingAverageCrossOver } from "./strategies/movingAverageCrossOver";
 import { getOpenPositions } from "./trade-client/getOpenPositions";
