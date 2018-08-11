@@ -2,7 +2,7 @@ import { getOpenPositions } from "../getOpenPositions";
 
 describe("getOpenPositions", () => {
   it("should return a list of open positions", async () => {
-    const openPositions = await getOpenPositions();
+    const openPositions = await getOpenPositions("101-004-8993504-001");
 
     expect(openPositions).toEqual([
       {

@@ -1,9 +1,13 @@
+import { get } from "lodash";
+
+import { getAccounts } from "./trade-client/getAccounts";
 import { createOrder } from "./trade-client/createOrder";
 import { getOrders } from "./trade-client/getOrders";
 import { getCandles } from "./trade-client/getCandles";
 import { log, logError, logTradeRecommendation } from "./utils/logger";
 import { movingAverageCrossOver } from "./strategies/movingAverageCrossOver";
 import { getOpenPositions } from "./trade-client/getOpenPositions";
+import { doesMeetConditions } from "./utils/doesMeetConditions";
 
 export async function trade() {
   try {
@@ -12,8 +16,11 @@ export async function trade() {
       count: 101,
     });
 
+    const accounts = await getAccounts();
+    const accountId = get(accounts, [0, "id"]);
+
     const orders = await getOrders();
-    const positions = await getOpenPositions();
+    const positions = await getOpenPositions(accountId);
 
     log(`Existing orders: ${JSON.stringify(orders)}`);
     log(`Existing positions: ${JSON.stringify(positions)}`);
