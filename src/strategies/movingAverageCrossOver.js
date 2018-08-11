@@ -93,12 +93,14 @@ export function movingAverageCrossOver({
     longTrend: longTermTrend.trend,
   });
 
-  return {
+  const isOpen = getIsOpenCondition({
+    longTrend: longTermTrend.trend,
+    signal: tradeSignal,
+  });
+
+  const tradeRecommendation = {
     conditions: {
-      isOpen: getIsOpenCondition({
-        longTrend: longTermTrend.trend,
-        signal: tradeSignal,
-      }),
+      isOpen,
       price: shortTermTrend.average,
     },
     reasons: [
@@ -112,4 +114,10 @@ export function movingAverageCrossOver({
     ],
     signal: tradeSignal,
   };
+
+  if (!isOpen) {
+    tradeRecommendation.conditions.stopLoss = longTermTrend.average;
+  }
+
+  return tradeRecommendation;
 }

@@ -109,6 +109,7 @@ describe("movingAverageCrossOver", () => {
             conditions: {
               isOpen: false,
               price: 0.89292,
+              stopLoss: 0.89525,
             },
             reasons: [
               "Fast moving average is 0.89325 with a rising trend",
@@ -272,6 +273,7 @@ describe("movingAverageCrossOver", () => {
           conditions: {
             isOpen: false,
             price: 0.89687,
+            stopLoss: 0.89375,
           },
           reasons: [
             "Fast moving average is 0.89625 with a falling trend",
