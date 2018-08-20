@@ -9,8 +9,31 @@ type Signal = "buy" | "sell" | "hold";
 
 type Conditions = {| isOpen: boolean, price: number, stopLoss?: number |};
 
-type TradeRecommendation = {|
-  conditions?: Conditions,
+type HoldRecommendation = {|
   reasons: Array<string>,
-  signal: Signal,
+  signal: "hold",
 |};
+
+type CreateOrderRecommendation = {|
+  conditions: {|
+    isOpen: false,
+    price: number,
+    stopLoss: number,
+  |},
+  reasons: Array<string>,
+  signal: "buy" | "sell",
+|};
+
+type TakeProfitRecommendation = {|
+  conditions: {|
+    isOpen: true,
+    price: number,
+  |},
+  reasons: Array<string>,
+  signal: "buy" | "sell",
+|};
+
+type TradeRecommendation =
+  | HoldRecommendation
+  | CreateOrderRecommendation
+  | TakeProfitRecommendation;

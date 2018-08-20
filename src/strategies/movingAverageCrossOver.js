@@ -98,27 +98,40 @@ export function movingAverageCrossOver({
     signal: tradeSignal,
   });
 
-  const tradeRecommendation = {
-    conditions: {
-      isOpen,
-      price: shortTermTrend.average,
-      stopLoss: undefined,
-    },
-    reasons: [
-      `Fast moving average is ${signal.average} with a ${signal.trend} trend`,
-      `Slow moving average is ${shortTermTrend.average} with a ${
-        shortTermTrend.trend
-      } trend`,
-      `Overall trend is ${longTermTrend.trend} with a ${
-        longTermTrend.average
-      } average`,
-    ],
-    signal: tradeSignal,
-  };
-
-  if (!isOpen) {
-    tradeRecommendation.conditions.stopLoss = longTermTrend.average;
+  if (isOpen) {
+    return {
+      conditions: {
+        isOpen,
+        price: shortTermTrend.average,
+      },
+      reasons: [
+        `Fast moving average is ${signal.average} with a ${signal.trend} trend`,
+        `Slow moving average is ${shortTermTrend.average} with a ${
+          shortTermTrend.trend
+        } trend`,
+        `Overall trend is ${longTermTrend.trend} with a ${
+          longTermTrend.average
+        } average`,
+      ],
+      signal: tradeSignal,
+    };
+  } else {
+    return {
+      conditions: {
+        isOpen,
+        price: shortTermTrend.average,
+        stopLoss: longTermTrend.average,
+      },
+      reasons: [
+        `Fast moving average is ${signal.average} with a ${signal.trend} trend`,
+        `Slow moving average is ${shortTermTrend.average} with a ${
+          shortTermTrend.trend
+        } trend`,
+        `Overall trend is ${longTermTrend.trend} with a ${
+          longTermTrend.average
+        } average`,
+      ],
+      signal: tradeSignal,
+    };
   }
-
-  return tradeRecommendation;
 }
