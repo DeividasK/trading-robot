@@ -87,7 +87,7 @@ type Order = {|
 
   //http://developer.oanda.com/rest-live-v20/transaction-df/#ClientExtensions
   // The client extensions of the Order. Do not set, modify, or delete clientExtensions if your account is associated with MT4.
-  clientExtensions: any,
+  clientExtensions: ClientExtensions,
 |};
 
 // Instrument name identifier. Used by clients to refer to an Instrument
@@ -166,3 +166,173 @@ type Position = {|
   // The details of the short side of the Position.
   short: PositionSide,
 |};
+
+// http://developer.oanda.com/rest-live-v20/transaction-df/#ClientID
+// A client-provided identifier, used by clients to refer to their Orders or Trades with an identifier that they have provided.
+type ClientID = "string";
+
+// http://developer.oanda.com/rest-live-v20/transaction-df/#ClientTag
+// A client-provided tag that can contain any data and may be assigned to their Orders or Trades. Tags are typically used to associate groups of Trades and/or Orders together.
+type ClientTag = "string";
+
+// http://developer.oanda.com/rest-live-v20/transaction-df/#ClientComment
+// A client-provided comment that can contain any data and may be assigned to their Orders or Trades. Comments are typically used to provide extra context or meaning to an Order or Trade.
+type ClientComment = "string";
+
+// http://developer.oanda.com/rest-live-v20/transaction-df/#ClientExtensions
+type ClientExtensions = {
+  // The Client ID of the Order/Trade
+  id: ClientID,
+
+  // A tag associated with the Order/Trade
+  tag: ClientTag,
+
+  // A comment associated with the Order/Trade
+  comment: ClientComment,
+};
+
+// http://developer.oanda.com/rest-live-v20/order-df/#OrderType
+type OrderType =
+  | "MARKET" //	A Market Order
+  | "LIMIT" //	A Limit Order
+  | "STOP" //	A Stop Order
+  | "MARKET_IF_TOUCHED" //	A Market-if-touched Order
+  | "TAKE_PROFIT" //	A Take Profit Order
+  | "STOP_LOSS" //	A Stop Loss Order
+  | "TRAILING_STOP_LOSS" //	A Trailing Stop Loss Order
+  | "FIXED_PRICE"; //	A Fixed Price Order
+
+// http://developer.oanda.com/rest-live-v20/order-df/#TimeInForce
+type TimeInForce =
+  | "GTC" //	The Order is “Good unTil Cancelled”
+  | "GTD" //	The Order is “Good unTil Date” and will be cancelled at the provided time
+  | "GFD" //	The Order is “Good For Day” and will be cancelled at 5pm New York time
+  | "FOK" //	The Order must be immediately “Filled Or Killed”
+  | "IOC"; //	The Order must be “Immediatedly paritally filled Or Cancelled”
+
+// http://developer.oanda.com/rest-live-v20/order-df/#OrderPositionFill
+type OrderPositionFill =
+  | "OPEN_ONLY" //	When the Order is filled, only allow Positions to be opened or extended.
+  | "REDUCE_FIRST" //	When the Order is filled, always fully reduce an existing Position before opening a new Position.
+  | "REDUCE_ONLY" //	When the Order is filled, only reduce an existing Position.
+  | "DEFAULT"; //	When the Order is filled, use REDUCE_FIRST behaviour for non-client hedging Accounts, and OPEN_ONLY behaviour for client hedging Accounts.
+
+// http://developer.oanda.com/rest-live-v20/order-df/#TakeProfitOrderRequest
+type TakeProfitOrderRequest = {
+  type: OrderType,
+};
+
+// http://developer.oanda.com/rest-live-v20/transaction-df/#TakeProfitDetails
+type TakeProfitDetails = {
+  // The price that the Take Profit Order will be triggered at. Only one of
+  // the price and distance fields may be specified.
+  price: PriceValue,
+
+  // The time in force for the created Take Profit Order. This may only be
+  // GTC, GTD or GFD.
+  timeInForce?: TimeInForce, // default=GTC
+
+  // The date when the Take Profit Order will be cancelled on if timeInForce
+  // is GTD.
+  gtdTime?: DateTime,
+
+  // The Client Extensions to add to the Take Profit Order when created.
+  clientExtensions?: ClientExtensions,
+};
+
+// http://developer.oanda.com/rest-live-v20/transaction-df/#StopLossDetails
+// StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a client. This may happen when an Order is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified directly through the Trade.
+type StopLossDetails = {
+  // The price that the Stop Loss Order will be triggered at. Only one of the
+  // price and distance fields may be specified.
+  price: PriceValue,
+
+  // Specifies the distance (in price units) from the Trade’s open price to
+  // use as the Stop Loss Order price. Only one of the distance and price
+  // fields may be specified.
+  distance: DecimalNumber,
+
+  // The time in force for the created Stop Loss Order. This may only be GTC,
+  // GTD or GFD.
+  timeInForce?: TimeInForce, // default=GTC
+
+  // The date when the Stop Loss Order will be cancelled on if timeInForce is
+  // GTD.
+  gtdTime?: DateTime,
+
+  // The Client Extensions to add to the Stop Loss Order when created.
+  clientExtensions?: ClientExtensions,
+
+  // Flag indicating that the price for the Stop Loss Order is guaranteed. The
+  // default value depends on the GuaranteedStopLossOrderMode of the account,
+  // if it is REQUIRED, the default will be true, for DISABLED or ENABLED the
+  // default is false.
+  guaranteed?: boolean,
+};
+
+// http://developer.oanda.com/rest-live-v20/transaction-df/#TrailingStopLossDetails
+// TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be created on behalf of a client. This may happen when an Order is filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade’s dependent Trailing Stop Loss Order is modified directly through the Trade.
+type TrailingStopLossDetails = {
+  // The distance (in price units) from the Trade’s fill price that the
+  // Trailing Stop Loss Order will be triggered at.
+  distance?: DecimalNumber,
+
+  // The time in force for the created Trailing Stop Loss Order. This may only
+  // be GTC, GTD or GFD.
+  timeInForce?: TimeInForce, // default=GTC
+
+  // The date when the Trailing Stop Loss Order will be cancelled on if
+  // timeInForce is GTD.
+  gtdTime?: DateTime,
+
+  // The Client Extensions to add to the Trailing Stop Loss Order when
+  // created.
+  clientExtensions?: ClientExtensions,
+};
+
+// http://developer.oanda.com/rest-live-v20/order-df/#MarketOrderRequest
+type MarketOrderRequest = {
+  type: OrderType,
+  instrument: InstrumentName,
+  // The quantity requested to be filled by the Market Order. A posititive
+  // number of units results in a long Order, and a negative number of units
+  // results in a short Order.
+  units: DecimalNumber,
+  // The time-in-force requested for the Market Order. Restricted to FOK or
+  // IOC for a MarketOrder.
+  timeInForce?: TimeInForce, // default=FOK
+  // The worst price that the client is willing to have the Market Order
+  // filled at.
+  priceBound?: PriceValue,
+  // Specification of how Positions in the Account are modified when the Order
+  // is filled.
+  positionFill?: OrderPositionFill, // default=DEFAULT
+  // The client extensions to add to the Order. Do not set, modify, or delete
+  // clientExtensions if your account is associated with MT4.
+  clientExtensions?: ClientExtensions,
+  // TakeProfitDetails specifies the details of a Take Profit Order to be
+  // created on behalf of a client. This may happen when an Order is filled
+  // that opens a Trade requiring a Take Profit, or when a Trade’s dependent
+  // Take Profit Order is modified directly through the Trade.
+  takeProfitOnFill?: TakeProfitDetails,
+
+  // StopLossDetails specifies the details of a Stop Loss Order to be created
+  // on behalf of a client. This may happen when an Order is filled that opens
+  // a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
+  // Order is modified directly through the Trade.
+  stopLossOnFill: StopLossDetails,
+
+  // TrailingStopLossDetails specifies the details of a Trailing Stop Loss
+  // Order to be created on behalf of a client. This may happen when an Order
+  // is filled that opens a Trade requiring a Trailing Stop Loss, or when a
+  // Trade’s dependent Trailing Stop Loss Order is modified directly through
+  // the Trade.
+  trailingStopLossOnFill: TrailingStopLossDetails,
+
+  // Client Extensions to add to the Trade created when the Order is filled
+  // (if such a Trade is created). Do not set, modify, or delete
+  // tradeClientExtensions if your account is associated with MT4.
+  tradeClientExtensions: ClientExtensions,
+};
+
+type OrderRequest = MarketOrderRequest | TakeProfitOrderRequest;

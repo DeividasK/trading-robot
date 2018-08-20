@@ -9,15 +9,16 @@ export async function createOrder(instrument: InstrumentName) {
     log(`Creating an order`);
     const accounts = await getAccounts();
     const accountId = get(accounts, [0, "id"]);
+    const order: OrderRequest = {
+      units: "1",
+      instrument,
+      type: "MARKET",
+    };
 
     const response = await request(`/accounts/${accountId}/orders `, {
       method: "POST",
       body: JSON.stringify({
-        order: {
-          units: "1",
-          instrument,
-          type: "MARKET",
-        },
+        order,
       }),
     });
     console.log(`received response`, response);
