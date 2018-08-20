@@ -102,6 +102,7 @@ export function movingAverageCrossOver({
     conditions: {
       isOpen,
       price: shortTermTrend.average,
+      stopLoss: undefined,
     },
     reasons: [
       `Fast moving average is ${signal.average} with a ${signal.trend} trend`,

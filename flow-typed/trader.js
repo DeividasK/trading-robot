@@ -7,7 +7,7 @@ type Trend = "rising" | "falling" | "ranging";
 
 type Signal = "buy" | "sell" | "hold";
 
-type Conditions = {| isOpen: boolean, price: number |};
+type Conditions = {| isOpen: boolean, price: number, stopLoss?: number |};
 
 type TradeRecommendation = {|
   conditions?: Conditions,
