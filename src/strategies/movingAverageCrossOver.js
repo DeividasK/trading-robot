@@ -87,11 +87,25 @@ export function movingAverageCrossOver({
   const signal = getMovingAverage(takeRight(candles, fastMA + 1));
   const shortTermTrend = getMovingAverage(takeRight(candles, slowMA + 1));
   const longTermTrend = getMovingAverage(takeRight(candles, trend + 1));
+
   const tradeSignal = getSignal({
     shortTrend: signal.trend,
     mediumTrend: shortTermTrend.trend,
     longTrend: longTermTrend.trend,
   });
+
+  if (tradeSignal === "hold") {
+    return {
+      reasons: [
+        `Couldn't determine a trade signal based on the existing trends. The trends are as follows:
+- Short trend - ${signal.trend}
+- Medium trend - ${shortTermTrend.trend}
+- Long trend - ${longTermTrend.trend}
+`,
+      ],
+      signal: "hold",
+    };
+  }
 
   const isOpen = getIsOpenCondition({
     longTrend: longTermTrend.trend,

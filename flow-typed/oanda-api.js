@@ -240,21 +240,13 @@ type TakeProfitDetails = {
   clientExtensions?: ClientExtensions,
 };
 
-// http://developer.oanda.com/rest-live-v20/transaction-df/#StopLossDetails
-// StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a client. This may happen when an Order is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified directly through the Trade.
-type StopLossDetails = {
-  // The price that the Stop Loss Order will be triggered at. Only one of the
-  // price and distance fields may be specified.
+type StopLossDetailsWithPrice = {
+  // The price that the Stop Loss Order will be triggered at.
   price: PriceValue,
-
-  // Specifies the distance (in price units) from the Trade’s open price to
-  // use as the Stop Loss Order price. Only one of the distance and price
-  // fields may be specified.
-  distance: DecimalNumber,
 
   // The time in force for the created Stop Loss Order. This may only be GTC,
   // GTD or GFD.
-  timeInForce?: TimeInForce, // default=GTC
+  timeInForce?: "GTC" | "GTD" | "GFD", // TimeInForce, default=GTC
 
   // The date when the Stop Loss Order will be cancelled on if timeInForce is
   // GTD.
@@ -269,6 +261,33 @@ type StopLossDetails = {
   // default is false.
   guaranteed?: boolean,
 };
+
+type StopLossDetailsWithDistance = {
+  // Specifies the distance (in price units) from the Trade’s open price to
+  // use as the Stop Loss Order price.
+  distance: DecimalNumber,
+
+  // The time in force for the created Stop Loss Order. This may only be GTC,
+  // GTD or GFD.
+  timeInForce?: "GTC" | "GTD" | "GFD", // TimeInForce, default=GTC
+
+  // The date when the Stop Loss Order will be cancelled on if timeInForce is
+  // GTD.
+  gtdTime?: DateTime,
+
+  // The Client Extensions to add to the Stop Loss Order when created.
+  clientExtensions?: ClientExtensions,
+
+  // Flag indicating that the price for the Stop Loss Order is guaranteed. The
+  // default value depends on the GuaranteedStopLossOrderMode of the account,
+  // if it is REQUIRED, the default will be true, for DISABLED or ENABLED the
+  // default is false.
+  guaranteed?: boolean,
+};
+
+// http://developer.oanda.com/rest-live-v20/transaction-df/#StopLossDetails
+// StopLossDetails specifies the details of a Stop Loss Order to be created on behalf of a client. This may happen when an Order is filled that opens a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss Order is modified directly through the Trade.
+type StopLossDetails = StopLossDetailsWithPrice | StopLossDetailsWithDistance;
 
 // http://developer.oanda.com/rest-live-v20/transaction-df/#TrailingStopLossDetails
 // TrailingStopLossDetails specifies the details of a Trailing Stop Loss Order to be created on behalf of a client. This may happen when an Order is filled that opens a Trade requiring a Trailing Stop Loss, or when a Trade’s dependent Trailing Stop Loss Order is modified directly through the Trade.
@@ -406,7 +425,75 @@ type LimitOrderRequest = {
   tradeClientExtensions?: ClientExtensions,
 };
 
+// http://developer.oanda.com/rest-live-v20/order-df/#StopOrderRequest
+// A StopOrderRequest specifies the parameters that may be set when creating a Stop Order.
+type StopOrderRequest = {
+  // The type of the Order to Create. Must be set to “STOP” when creating a
+  // Stop Order.
+  type: "STOP",
+
+  // The Stop Order’s Instrument.
+  instrument: InstrumentName,
+
+  // The quantity requested to be filled by the Stop Order. A posititive
+  // number of units results in a long Order, and a negative number of units
+  // results in a short Order.
+  units: DecimalNumber,
+
+  // The price threshold specified for the Stop Order. The Stop Order will
+  // only be filled by a market price that is equal to or worse than this
+  // price.
+  price: PriceValue,
+
+  // The worst market price that may be used to fill this Stop Order. If the
+  // market gaps and crosses through both the price and the priceBound, the
+  // Stop Order will be cancelled instead of being filled.
+  priceBound?: PriceValue,
+
+  // The time-in-force requested for the Stop Order.
+  timeInForce?: TimeInForce, // default=GTC
+
+  // The date/time when the Stop Order will be cancelled if its timeInForce is
+  // “GTD”.
+  gtdTime?: DateTime,
+
+  // Specification of how Positions in the Account are modified when the Order
+  // is filled.
+  positionFill?: OrderPositionFill, // default=DEFAULT
+
+  triggerCondition?: OrderTriggerCondition, // default=DEFAULT
+
+  // The client extensions to add to the Order. Do not set, modify, or delete
+  // clientExtensions if your account is associated with MT4.
+  clientExtensions?: ClientExtensions,
+
+  // TakeProfitDetails specifies the details of a Take Profit Order to be
+  // created on behalf of a client. This may happen when an Order is filled
+  // that opens a Trade requiring a Take Profit, or when a Trade’s dependent
+  // Take Profit Order is modified directly through the Trade.
+  takeProfitOnFill?: TakeProfitDetails,
+
+  // StopLossDetails specifies the details of a Stop Loss Order to be created
+  // on behalf of a client. This may happen when an Order is filled that opens
+  // a Trade requiring a Stop Loss, or when a Trade’s dependent Stop Loss
+  // Order is modified directly through the Trade.
+  stopLossOnFill?: StopLossDetails,
+
+  // TrailingStopLossDetails specifies the details of a Trailing Stop Loss
+  // Order to be created on behalf of a client. This may happen when an Order
+  // is filled that opens a Trade requiring a Trailing Stop Loss, or when a
+  // Trade’s dependent Trailing Stop Loss Order is modified directly through
+  // the Trade.
+  trailingStopLossOnFill?: TrailingStopLossDetails,
+
+  // Client Extensions to add to the Trade created when the Order is filled
+  // (if such a Trade is created). Do not set, modify, or delete
+  // tradeClientExtensions if your account is associated with MT4.
+  tradeClientExtensions?: ClientExtensions,
+};
+
 type OrderRequest =
   | LimitOrderRequest
   | MarketOrderRequest
+  | StopOrderRequest
   | TakeProfitOrderRequest;

@@ -42,7 +42,7 @@ REASONS:
 ${tradeRecommendation.reasons.join("\n")}
 
 CONDITIONS:
-${Object.entries(tradeRecommendation.conditions)
+${Object.entries(tradeRecommendation.conditions || {})
     .map(entry => `${entry[0]}: ${String(entry[1])}`)
     .join("\n")}
 ------------`);

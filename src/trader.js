@@ -8,6 +8,7 @@ import { log, logError, logTradeRecommendation } from "./utils/logger";
 import { movingAverageCrossOver } from "./strategies/movingAverageCrossOver";
 import { getOpenPositions } from "./trade-client/getOpenPositions";
 import { doesMeetConditions } from "./utils/doesMeetConditions";
+import { generateOrderRequestFromRecommendation } from "./utils/generateOrderRequestFromRecommendation";
 
 export async function trade() {
   try {
@@ -25,6 +26,11 @@ export async function trade() {
 
     logTradeRecommendation(tradeRecommendation);
 
+    if (tradeRecommendation.signal === "hold") {
+      log(`Doing nothing as the signal was "hold".`);
+      return;
+    }
+
     const accounts = await getAccounts();
     const accountId = get(accounts, [0, "id"]);
 
@@ -38,26 +44,25 @@ export async function trade() {
 
     const positions = await getOpenPositions(accountId);
 
-    if (orders.length !== 0 || positions.length !== 0) {
+    if (
+      positions.length !== 0 &&
+      tradeRecommendation.conditions.isOpen === true
+    ) {
       log(`There are existing positions: ${JSON.stringify(positions)}`);
-      // TODO: Check if take limit or stop loss orders don't need to be modified
+      // TODO: Check if take profit or stop loss orders don't need to be modified
       return;
     }
 
-    if (
-      tradeRecommendation.signal === "buy" &&
-      tradeRecommendation.conditions.isOpen === "false"
-    ) {
-      // Create new order
-      const orderRequest: LimitOrderRequest = {
-        units: "1",
-        instrument: "EUR_GBP",
-        type: "LIMIT",
-        price: tradeRecommendation.conditions.price,
-      };
+    const orderRequest = generateOrderRequestFromRecommendation(
+      tradeRecommendation,
+    );
 
-      await createOrder(orderRequest);
-    }
+    const response = await createOrder(orderRequest);
+    log(
+      `Sent an order request: ${JSON.stringify(
+        orderRequest,
+      )}. Server response: ${JSON.stringify(response)}`,
+    );
   } catch (error) {
     logError(error);
   }
