@@ -54,7 +54,7 @@ export async function trade() {
     }
 
     const orderRequest = generateOrderRequestFromRecommendation(
-      tradeRecommendation,
+      ((tradeRecommendation: any): CreateOrderRecommendation),
     );
 
     const response = await createOrder(orderRequest);
