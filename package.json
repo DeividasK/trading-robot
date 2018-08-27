@@ -4,8 +4,9 @@
   "description": "This is a script that generates trade recommendations and executes them in real time.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack src/index.js --config internals/webpack.config.js",
-    "build:watch": "webpack src/index.js --watch --config internals/webpack.config.js",
+    "build": "rm -rf ./trader.js && webpack --config internals/webpack.config.js",
+    "build:watch": "webpack --watch --config internals/webpack.config.js",
+    "deploy": "serverless deploy",
     "flow": "flow src",
     "start": "node dist/main.js",
     "test": "jest",
@@ -25,11 +26,11 @@
     "flow-typed": "^2.5.1",
     "jest": "^23.4.2",
     "replay": "^2.3.0",
+    "serverless": "^1.30.1",
     "webpack": "^4.16.4",
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "chalk": "^2.4.1",
     "console-stamp": "^0.2.6",
     "global": "^4.3.2",

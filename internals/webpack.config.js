@@ -1,8 +1,19 @@
-const Dotenv = require("dotenv-webpack");
+const dotenv = require("dotenv-webpack");
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   devtool: "inline-source-map",
   mode: "development",
+  entry: {
+    index: "./src/index.js",
+    trader: "./src/trader.js",
+  },
+  output: {
+    path: path.resolve(__dirname, ".."),
+    filename: "[name].js",
+    libraryTarget: "commonjs2",
+  },
   module: {
     rules: [
       {
@@ -19,6 +30,10 @@ module.exports = {
       },
     ],
   },
-  plugins: [new Dotenv()],
+  plugins: [
+    new dotenv(),
+    // This is to remove a warning about a dependency being an expression
+    new webpack.ContextReplacementPlugin(/encoding/),
+  ],
   target: "node",
 };

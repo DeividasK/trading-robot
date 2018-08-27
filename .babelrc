@@ -4,8 +4,7 @@
       "env",
       {
         "targets": {
-          "node": "current",
-          "modules": "commonjs"
+          "node": "8.10"
         }
       }
     ],

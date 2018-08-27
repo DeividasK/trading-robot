@@ -9,6 +9,8 @@ This is a simple script that interacts with OANDA API to trade currencies
 ### To do list for an MVP
 
 - Host the code to run continuously
+- Proper position sizing
+- Update take profit orders
 
 ### Features list
 

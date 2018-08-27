@@ -6,6 +6,9 @@ node_modules
 
 # Auto-generated
 dist
+.serverless
+index.js
+trader.js
 
 # Environmental variables
 .env
