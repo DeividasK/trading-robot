@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`logTradeRecommendation should log 'create order' recommendation with conditions 1`] = `
+"------------
+SIGNAL: [38;2;0;128;0mBUY[39m
+
+REASONS:
+Fast moving average is 0.89718 with a falling trend
+Slow moving average is 0.89682 with a falling trend
+Overall trend is falling with a 0.89688 average
+
+CONDITIONS:
+isOpen: false
+price: 0.89682
+stopLoss: 0.8918
+------------"
+`;
+
+exports[`logTradeRecommendation should log 'hold' recommendation without conditions 1`] = `
+"------------
+SIGNAL: [38;2;255;255;0mHOLD[39m
+
+REASONS:
+Couldn't determine a trade signal based on the existing trends. The trends are as follows:
+- Short trend - rising
+- Medium trend - rising
+- Long trend - falling
+------------"
+`;

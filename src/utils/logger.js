@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import type { Chalk } from "chalk";
 import { omit } from "lodash";
 import PrettyError from "pretty-error";
 
@@ -16,7 +17,7 @@ export function logError(error: any) {
   console.log(pe.render(error));
 }
 
-function getSignalColour(signal) {
+function getSignalColour(signal): "green" | "red" | "yellow" {
   switch (true) {
     case signal === "buy":
       return "green";
@@ -29,21 +30,28 @@ function getSignalColour(signal) {
 
 export function logTradeRecommendation(
   tradeRecommendation: TradeRecommendation,
-) {
+  logger: string => void = console.log,
+): string {
   const signalColour = getSignalColour(tradeRecommendation.signal);
-  // $FlowFixMe
-  const report = chalk[signalColour];
+  const report: Chalk = chalk.keyword(signalColour);
 
-  console.log(`
-------------
+  const message = `------------
 SIGNAL: ${report(tradeRecommendation.signal.toUpperCase())}
 
 REASONS:
 ${tradeRecommendation.reasons.join("\n")}
-
+${
+    tradeRecommendation.conditions !== undefined
+      ? `
 CONDITIONS:
-${Object.entries(tradeRecommendation.conditions || {})
-    .map(entry => `${entry[0]}: ${String(entry[1])}`)
-    .join("\n")}
-------------`);
+${Object.entries(tradeRecommendation.conditions)
+          .map(entry => `${entry[0]}: ${String(entry[1])}`)
+          .join("\n")}
+------------`
+      : `------------`
+  }`;
+
+  logger(message);
+
+  return message;
 }
