@@ -8,6 +8,7 @@ describe("generateOrderRequestFromRecommendation", () => {
         price: 0.89292,
         stopLoss: 0.89525,
       },
+      instrument: "EUR_GBP",
       signal: "sell",
       reasons: [],
     };
@@ -35,6 +36,7 @@ describe("generateOrderRequestFromRecommendation", () => {
         price: 0.89525,
         stopLoss: 0.89292,
       },
+      instrument: "EUR_GBP",
       signal: "buy",
       reasons: [],
     };

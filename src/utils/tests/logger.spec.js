@@ -3,6 +3,7 @@ import { logTradeRecommendation } from "../logger";
 describe("logTradeRecommendation", () => {
   it("should log 'hold' recommendation without conditions", () => {
     const holdRecommendation: HoldRecommendation = {
+      instrument: "EUR_GBP",
       signal: "hold",
       reasons: [
         `Couldn't determine a trade signal based on the existing trends. The trends are as follows:
@@ -25,6 +26,7 @@ describe("logTradeRecommendation", () => {
         "Slow moving average is 0.89682 with a falling trend",
         "Overall trend is falling with a 0.89688 average",
       ],
+      instrument: "EUR_GBP",
       conditions: {
         isOpen: false,
         price: 0.89682,

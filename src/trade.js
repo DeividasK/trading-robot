@@ -16,8 +16,10 @@ async function getAccountId() {
 }
 
 export async function trade() {
+  const INSTRUMENT = "GBP_USD";
+
   try {
-    const candles = await getCandles("EUR_GBP", {
+    const candles = await getCandles(INSTRUMENT, {
       granularity: "M15",
       count: 101,
     });
@@ -25,6 +27,7 @@ export async function trade() {
     const tradeRecommendation = movingAverageCrossOver({
       candles: candles,
       fastMA: 20,
+      instrument: INSTRUMENT,
       slowMA: 60,
       trend: 100,
     });
@@ -61,7 +64,7 @@ export async function trade() {
       ((tradeRecommendation: any): CreateOrderRecommendation),
     );
 
-    const response = await createOrder(orderRequest);
+    const response = await createOrder(accountId, orderRequest);
     log(
       `Sent an order request: ${JSON.stringify(
         orderRequest,

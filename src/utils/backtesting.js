@@ -12,6 +12,7 @@ export async function backtest() {
     const recommendation = movingAverageCrossOver({
       candles: candlesSubset,
       fastMA: 20,
+      instrument: "EUR_GBP",
       slowMA: 60,
       trend: 100,
     });

@@ -63,19 +63,24 @@ function getIsOpenCondition({
   }
 }
 
+type MovingAverageCrossOverArgs = {
+  candles: Array<Candlestick>,
+  fastMA: number,
+  instrument: InstrumentName,
+  slowMA: number,
+  trend: number,
+};
+
 export function movingAverageCrossOver({
   candles,
   fastMA,
+  instrument,
   slowMA,
   trend,
-}: {
-  candles: Array<Candlestick>,
-  fastMA: number,
-  slowMA: number,
-  trend: number,
-}): TradeRecommendation {
+}: MovingAverageCrossOverArgs): TradeRecommendation {
   if (candles.length < trend + 1) {
     return {
+      instrument,
       reasons: [
         `Not enough data to create a signal. Expected at least ${trend +
           1} candles, but got ${candles.length}.`,
@@ -96,6 +101,7 @@ export function movingAverageCrossOver({
 
   if (tradeSignal === "hold") {
     return {
+      instrument,
       reasons: [
         `Couldn't determine a trade signal based on the existing trends. The trends are as follows:
 - Short trend - ${signal.trend}
@@ -118,6 +124,7 @@ export function movingAverageCrossOver({
         isOpen,
         price: shortTermTrend.average,
       },
+      instrument,
       reasons: [
         `Fast moving average is ${signal.average} with a ${signal.trend} trend`,
         `Slow moving average is ${shortTermTrend.average} with a ${
@@ -136,6 +143,7 @@ export function movingAverageCrossOver({
         price: shortTermTrend.average,
         stopLoss: longTermTrend.average,
       },
+      instrument,
       reasons: [
         `Fast moving average is ${signal.average} with a ${signal.trend} trend`,
         `Slow moving average is ${shortTermTrend.average} with a ${

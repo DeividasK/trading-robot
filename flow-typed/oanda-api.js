@@ -93,7 +93,7 @@ type Order = {|
 // Instrument name identifier. Used by clients to refer to an Instrument
 // http://developer.oanda.com/rest-live-v20/primitives-df/#InstrumentName
 // A string containing the base currency and quote currency delimited by a “_”.
-type InstrumentName = "EUR_GBP";
+type InstrumentName = "EUR_GBP" | "GBP_USD";
 
 // The string representation of a quantity of an Account’s home currency.
 // http://developer.oanda.com/rest-live-v20/primitives-df/#AccountUnits

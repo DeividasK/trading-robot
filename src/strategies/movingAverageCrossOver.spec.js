@@ -12,11 +12,13 @@ describe("movingAverageCrossOver", () => {
       const signal = movingAverageCrossOver({
         candles: [],
         fastMA: 2,
+        instrument: "GBP_USD",
         slowMA: 6,
         trend: 10,
       });
 
       expect(signal).toEqual({
+        instrument: "GBP_USD",
         reasons: [
           "Not enough data to create a signal. Expected at least 11 candles, but got 0.",
         ],
@@ -101,6 +103,7 @@ describe("movingAverageCrossOver", () => {
           const signal = movingAverageCrossOver({
             candles,
             fastMA: 2,
+            instrument: "EUR_GBP",
             slowMA: 6,
             trend: 10,
           });
@@ -111,6 +114,7 @@ describe("movingAverageCrossOver", () => {
               price: 0.89292,
               stopLoss: 0.89525,
             },
+            instrument: "EUR_GBP",
             reasons: [
               "Fast moving average is 0.89325 with a rising trend",
               "Slow moving average is 0.89292 with a falling trend",
@@ -198,6 +202,7 @@ describe("movingAverageCrossOver", () => {
         const signal = movingAverageCrossOver({
           candles,
           fastMA: 2,
+          instrument: "EUR_GBP",
           slowMA: 6,
           trend: 10,
         });
@@ -207,6 +212,7 @@ describe("movingAverageCrossOver", () => {
             isOpen: true,
             price: 0.8907,
           },
+          instrument: "EUR_GBP",
           reasons: [
             "Fast moving average is 0.89268 with a rising trend",
             `Slow moving average is 0.8907 with a rising trend`,
@@ -265,6 +271,7 @@ describe("movingAverageCrossOver", () => {
         const signal = movingAverageCrossOver({
           candles,
           fastMA: 2,
+          instrument: "EUR_GBP",
           slowMA: 4,
           trend: 6,
         });
@@ -275,6 +282,7 @@ describe("movingAverageCrossOver", () => {
             price: 0.89687,
             stopLoss: 0.89375,
           },
+          instrument: "EUR_GBP",
           reasons: [
             "Fast moving average is 0.89625 with a falling trend",
             `Slow moving average is 0.89687 with a rising trend`,

@@ -1,0 +1,19 @@
+POST /v3/accounts/101-004-8993504-003/orders
+content-type: application/json
+authorization: Bearer 3ffd999490f6370f61b42d3556cee98e-f68b7c0e2d0940951edcf4f62206d24c
+accept: */*
+accept-encoding: gzip,deflate
+body: {\"order\":{\"units\":\"1\",\"instrument\":\"GBP_USD\",\"type\":\"STOP\",\"price\":\"0.89622\",\"stopLossOnFill\":{\"price\":\"0.89639\"}}}
+
+HTTP/1.1 201 Created
+access-control-allow-headers: Authorization, Content-Type, Accept-Datetime-Format, OANDA-Agent, ETag
+access-control-allow-methods: PUT, PATCH, POST, GET, OPTIONS, DELETE
+access-control-allow-origin: *
+access-control-expose-headers: ETag
+content-length: 480
+content-type: application/json
+location: https://api-fxpractice.oanda.com/v3/accounts/101-004-8993504-003/orders/6
+requestid: 60484803345005132
+connection: close
+
+{"orderCreateTransaction":{"type":"STOP_ORDER","instrument":"GBP_USD","units":"1","price":"0.89622","timeInForce":"GTC","triggerCondition":"DEFAULT","partialFill":"DEFAULT","positionFill":"DEFAULT","stopLossOnFill":{"price":"0.89639","timeInForce":"GTC"},"reason":"CLIENT_ORDER","id":"6","accountID":"101-004-8993504-003","userID":8993504,"batchID":"6","requestID":"60484803345005132","time":"2018-09-01T10:49:42.267835195Z"},"relatedTransactionIDs":["6"],"lastTransactionID":"6"}

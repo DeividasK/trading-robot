@@ -1,3 +1,8 @@
+// Instrument name identifier. Used by clients to refer to an Instrument
+// http://developer.oanda.com/rest-live-v20/primitives-df/#InstrumentName
+// A string containing the base currency and quote currency delimited by a “_”.
+type InstrumentName = "EUR_GBP" | "GBP_USD";
+
 /*
   "rising" - previous candle had a lower closing value
   "falling" - previous candle had a higher closing value
@@ -10,6 +15,7 @@ type Signal = "buy" | "sell" | "hold";
 type Conditions = {| isOpen: boolean, price: number, stopLoss?: number |};
 
 type HoldRecommendation = {|
+  instrument: InstrumentName,
   reasons: Array<string>,
   signal: "hold",
 |};
@@ -20,6 +26,7 @@ type CreateOrderRecommendation = {|
     price: number,
     stopLoss: number,
   |},
+  instrument: InstrumentName,
   reasons: Array<string>,
   signal: "buy" | "sell",
 |};
@@ -29,6 +36,7 @@ type TakeProfitRecommendation = {|
     isOpen: true,
     price: number,
   |},
+  instrument: InstrumentName,
   reasons: Array<string>,
   signal: "buy" | "sell",
 |};

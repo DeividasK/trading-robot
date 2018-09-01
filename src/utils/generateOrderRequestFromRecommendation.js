@@ -7,7 +7,7 @@ export function generateOrderRequestFromRecommendation(
   ) {
     const orderRequest: StopOrderRequest = {
       units: "1",
-      instrument: "EUR_GBP",
+      instrument: tradeRecommendation.instrument,
       type: "STOP",
       price: tradeRecommendation.conditions.price.toString(),
       stopLossOnFill: {
@@ -24,7 +24,7 @@ export function generateOrderRequestFromRecommendation(
   ) {
     const orderRequest: LimitOrderRequest = {
       units: "1",
-      instrument: "EUR_GBP",
+      instrument: tradeRecommendation.instrument,
       type: "LIMIT",
       price: tradeRecommendation.conditions.price.toString(),
       stopLossOnFill: {
