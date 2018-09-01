@@ -19,3 +19,12 @@ Code is hosted on an AWS Lambda
 
 - Update a stop-loss of an open trade (small)
 - Backtesting (large)
+
+### Running locally
+
+- Run `yarn build:watch` to start watching the files.
+- (in another tab) Run `yarn start` to start the trader.
+
+### Commands
+
+- `yarn logs:day` - creates "logs.txt" file with the logs for the last 24h

@@ -7,7 +7,7 @@ provider:
 
 package: # Optional deployment packaging configuration
   include: # Specify the directories and files which should be included in the deployment package
-    - trader.js
+    - trader-generated.js
   exclude: # Specify the directories and files which should be excluded in the deployment package
     - .git/**
     - node_modules/**
@@ -20,9 +20,11 @@ package: # Optional deployment packaging configuration
     - readme.md
     - src/**
     - yarn.lock
+    - index-generated.js
+    - logs.txt
 
 functions:
   trader:
-    handler: trader.trade
+    handler: trader-generated.trade
     events:
       - schedule: rate(15 minutes)

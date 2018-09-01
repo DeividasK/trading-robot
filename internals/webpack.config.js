@@ -11,7 +11,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, ".."),
-    filename: "[name].js",
+    filename: "[name]-generated.js",
     libraryTarget: "commonjs2",
   },
   module: {

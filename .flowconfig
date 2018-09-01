@@ -6,6 +6,10 @@
 <PROJECT_ROOT>/.vscode/.*
 <PROJECT_ROOT>/node_modules/.*
 
+# Generated files
+<PROJECT_ROOT>/\.serverless/*
+<PROJECT_ROOT>/.*-generated\.js
+
 [include]
 
 [libs]
