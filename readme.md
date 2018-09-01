@@ -1,8 +1,8 @@
-### Trading bot
+# Trading bot
 
 This is a simple script that interacts with OANDA API to trade currencies
 
-Code is hosted as AWS Lambda
+Code is hosted on an AWS Lambda
 
 ### Feature list
 
@@ -10,8 +10,9 @@ Code is hosted as AWS Lambda
 
 ### To do list for an MVP
 
-- Proper position sizing
+- Specify a trading account
 - Update take profit orders
+- Proper position sizing
 - Configure cron to run every 15 minutes on the hour, not based on the deploy time
 
 ### Features list
