@@ -80,6 +80,7 @@ export function movingAverageCrossOver({
 }: MovingAverageCrossOverArgs): TradeRecommendation {
   if (candles.length < trend + 1) {
     return {
+      action: "hold",
       instrument,
       reasons: [
         `Not enough data to create a signal. Expected at least ${trend +
@@ -101,6 +102,7 @@ export function movingAverageCrossOver({
 
   if (tradeSignal === "hold") {
     return {
+      action: "hold",
       instrument,
       reasons: [
         `Couldn't determine a trade signal based on the existing trends. The trends are as follows:
@@ -120,6 +122,7 @@ export function movingAverageCrossOver({
 
   if (isOpen) {
     return {
+      action: "update",
       conditions: {
         isOpen,
         price: shortTermTrend.average,
@@ -138,6 +141,7 @@ export function movingAverageCrossOver({
     };
   } else {
     return {
+      action: "create",
       conditions: {
         isOpen,
         price: shortTermTrend.average,

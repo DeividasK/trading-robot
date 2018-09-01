@@ -11,6 +11,7 @@
     "logs:day": "serverless logs -f trader --startTime 1d > logs.txt",
     "logs:hour": "serverless logs -f trader --startTime 1h",
     "logs:watch": "serverless logs -f trader --tail",
+    "logs:week": "serverless logs -f trader --startTime 7d > logs.txt",
     "start": "node index-generated.js",
     "test": "jest",
     "test:watch": "REPLAY=record jest --watch"

@@ -18,6 +18,7 @@ describe("movingAverageCrossOver", () => {
       });
 
       expect(signal).toEqual({
+        action: "hold",
         instrument: "GBP_USD",
         reasons: [
           "Not enough data to create a signal. Expected at least 11 candles, but got 0.",
@@ -109,6 +110,7 @@ describe("movingAverageCrossOver", () => {
           });
 
           expect(signal).toEqual({
+            action: "create",
             conditions: {
               isOpen: false,
               price: 0.89292,
@@ -208,6 +210,7 @@ describe("movingAverageCrossOver", () => {
         });
 
         expect(signal).toEqual({
+          action: "update",
           conditions: {
             isOpen: true,
             price: 0.8907,
@@ -277,6 +280,7 @@ describe("movingAverageCrossOver", () => {
         });
 
         expect(signal).toEqual({
+          action: "create",
           conditions: {
             isOpen: false,
             price: 0.89687,

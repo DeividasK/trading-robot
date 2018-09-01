@@ -3,6 +3,7 @@ import { logTradeRecommendation } from "../logger";
 describe("logTradeRecommendation", () => {
   it("should log 'hold' recommendation without conditions", () => {
     const holdRecommendation: HoldRecommendation = {
+      action: "hold",
       instrument: "EUR_GBP",
       signal: "hold",
       reasons: [
@@ -20,6 +21,7 @@ describe("logTradeRecommendation", () => {
 
   it("should log 'create order' recommendation with conditions", () => {
     const createOrderRecommendation: CreateOrderRecommendation = {
+      action: "create",
       signal: "buy",
       reasons: [
         "Fast moving average is 0.89718 with a falling trend",

@@ -49,19 +49,18 @@ export async function trade() {
       return;
     }
 
-    const positions = await getOpenPositions(accountId);
+    if (tradeRecommendation.action === "update") {
+      const positions = await getOpenPositions(accountId);
 
-    if (
-      positions.length !== 0 &&
-      tradeRecommendation.conditions.isOpen === true
-    ) {
-      log(`There are existing positions: ${JSON.stringify(positions)}`);
+      if (positions.length !== 0) {
+        log(`There are existing positions: ${JSON.stringify(positions)}`);
+      }
       // TODO: Check if take profit or stop loss orders don't need to be modified
       return;
     }
 
     const orderRequest = generateOrderRequestFromRecommendation(
-      ((tradeRecommendation: any): CreateOrderRecommendation),
+      tradeRecommendation,
     );
 
     const response = await createOrder(accountId, orderRequest);

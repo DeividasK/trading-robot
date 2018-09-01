@@ -3,6 +3,7 @@ import { generateOrderRequestFromRecommendation } from "../generateOrderRequestF
 describe("generateOrderRequestFromRecommendation", () => {
   it('should generate a "STOP" order when signal is "sell" and no orders exist', () => {
     const tradeRecommendation = {
+      action: "create",
       conditions: {
         isOpen: false,
         price: 0.89292,
@@ -31,6 +32,7 @@ describe("generateOrderRequestFromRecommendation", () => {
 
   it('should generate a "LIMIT" order when signal is "buy" and no orders exist', () => {
     const tradeRecommendation = {
+      action: "create",
       conditions: {
         isOpen: false,
         price: 0.89525,

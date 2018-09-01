@@ -10,17 +10,19 @@ type InstrumentName = "EUR_GBP" | "GBP_USD";
 */
 type Trend = "rising" | "falling" | "ranging";
 
+type Action = "hold" | "create" | "update";
+type Conditions = {| isOpen: boolean, price: number, stopLoss?: number |};
 type Signal = "buy" | "sell" | "hold";
 
-type Conditions = {| isOpen: boolean, price: number, stopLoss?: number |};
-
 type HoldRecommendation = {|
+  action: "hold",
   instrument: InstrumentName,
   reasons: Array<string>,
   signal: "hold",
 |};
 
 type CreateOrderRecommendation = {|
+  action: "create",
   conditions: {|
     isOpen: false,
     price: number,
@@ -32,6 +34,7 @@ type CreateOrderRecommendation = {|
 |};
 
 type TakeProfitRecommendation = {|
+  action: "update",
   conditions: {|
     isOpen: true,
     price: number,
