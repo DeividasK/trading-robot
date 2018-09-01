@@ -13,6 +13,9 @@ export function generateOrderRequestFromRecommendation(
       stopLossOnFill: {
         price: tradeRecommendation.conditions.stopLoss.toString(),
       },
+      takeProfitOnFill: {
+        price: tradeRecommendation.conditions.takeProfit.toString(),
+      },
     };
 
     return orderRequest;
@@ -29,6 +32,9 @@ export function generateOrderRequestFromRecommendation(
       price: tradeRecommendation.conditions.price.toString(),
       stopLossOnFill: {
         price: tradeRecommendation.conditions.stopLoss.toString(),
+      },
+      takeProfitOnFill: {
+        price: tradeRecommendation.conditions.takeProfit.toString(),
       },
     };
 

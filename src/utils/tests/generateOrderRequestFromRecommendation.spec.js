@@ -26,6 +26,9 @@ describe("generateOrderRequestFromRecommendation", () => {
       stopLossOnFill: {
         price: "0.89525",
       },
+      takeProfitOnFill: {
+        price: "0.89",
+      },
     };
 
     expect(generatedOrderRequest).toEqual(expectedOrderRequest);
@@ -55,6 +58,9 @@ describe("generateOrderRequestFromRecommendation", () => {
       price: "0.89525",
       stopLossOnFill: {
         price: "0.89292",
+      },
+      takeProfitOnFill: {
+        price: "0.9",
       },
     };
 
