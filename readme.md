@@ -4,14 +4,21 @@ This is a simple script that interacts with OANDA API to trade currencies
 
 Code is hosted on an AWS Lambda
 
+## Strategies
+
+**Moving Averages Cross-Over** (MACO) trading strategy
+(description)
+
 ### Feature list
 
-- Open a trade with a correct stop-loss
-- Specify a trading account
+(xx/08/2018) Open a trade with a correct stop-loss
+(01/09/2018) Specify a trading account
 
 ### To do list
 
-- Update take profit orders
+- Add limit order to the MACO strategy
+- Implement backtesting functionality
+- Add MACO strategy description
 - Proper position sizing
 - Update a stop-loss of an open trade (small)
 - Backtesting (large)
