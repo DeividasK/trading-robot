@@ -4,13 +4,22 @@ import fetch from "node-fetch";
 const API_URL = process.env.API_URL || "";
 const API_KEY = process.env.API_KEY || "";
 
-function checkStatus(response) {
+async function checkStatus(response) {
   if (response.status > 199 && response.status < 300) {
     return response.json();
   }
 
+  if (response.status > 399 && response.status < 500) {
+    const { errorMessage } = await response.json();
+
+    throw new Error(
+      `Response status: ${response.status} ${response.statusText}.
+Message: ${errorMessage}`,
+    );
+  }
+
   throw new Error(
-    `Response status ${response.status}. Error ${response.statusText}.`,
+    `Response status ${response.status} - ${response.statusText}.`,
   );
 }
 

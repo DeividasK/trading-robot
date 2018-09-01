@@ -1,6 +1,6 @@
 GET /v3/accounts/101-004-8993504-001/positions/EUR_GBP
 content-type: application/json
-authorization: Bearer c3d866e94969a89bfd0385d05718f465-18482d85cac7ffa6f1d6c734a22adc21
+authorization: Bearer 3ffd999490f6370f61b42d3556cee98e-f68b7c0e2d0940951edcf4f62206d24c
 accept: */*
 accept-encoding: gzip,deflate
 

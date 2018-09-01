@@ -1,0 +1,18 @@
+GET /v3/accounts/101-004-8993504-002/orders
+content-type: application/json
+authorization: Bearer 3ffd999490f6370f61b42d3556cee98e-f68b7c0e2d0940951edcf4f62206d24c
+accept: */*
+accept-encoding: gzip,deflate
+
+HTTP/1.1 200 OK
+access-control-allow-headers: Authorization, Content-Type, Accept-Datetime-Format, OANDA-Agent, ETag
+access-control-allow-methods: PUT, PATCH, POST, GET, OPTIONS, DELETE
+access-control-allow-origin: *
+access-control-expose-headers: ETag
+content-length: 340
+content-type: application/json
+link: <https://api-fxpractice.oanda.com/v3/accounts/101-004-8993504-002/orders?beforeID=41>; rel="next"
+requestid: 60484796624774389
+connection: close
+
+{"orders":[{"id":"41","createTime":"2018-08-31T20:01:56.641165926Z","type":"STOP","instrument":"EUR_GBP","units":"1","timeInForce":"GTC","stopLossOnFill":{"price":"0.89643","timeInForce":"GTC"},"price":"0.89631","triggerCondition":"DEFAULT","partialFill":"DEFAULT_FILL","positionFill":"DEFAULT","state":"PENDING"}],"lastTransactionID":"43"}

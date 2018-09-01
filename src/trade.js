@@ -10,6 +10,11 @@ import { getOpenPositions } from "./trade-client/getOpenPositions";
 import { doesMeetConditions } from "./utils/doesMeetConditions";
 import { generateOrderRequestFromRecommendation } from "./utils/generateOrderRequestFromRecommendation";
 
+async function getAccountId() {
+  const accounts = await getAccounts();
+  return get(accounts, [0, "id"]);
+}
+
 export async function trade() {
   try {
     const candles = await getCandles("EUR_GBP", {
@@ -31,10 +36,9 @@ export async function trade() {
       return;
     }
 
-    const accounts = await getAccounts();
-    const accountId = get(accounts, [0, "id"]);
+    const accountId = process.env.ACCOUNT_ID || (await getAccountId());
 
-    const orders = await getOrders();
+    const orders = await getOrders(accountId);
 
     if (orders.length !== 0) {
       log(`There are existing orders: ${JSON.stringify(orders)}`);
