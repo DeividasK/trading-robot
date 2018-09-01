@@ -1,5 +1,6 @@
 import { takeRight } from "lodash";
 
+import { calculateTakeProfit } from "./calculateTakeProfit";
 import { getMovingAverage } from "../utils";
 
 function getSignal({
@@ -146,6 +147,12 @@ export function movingAverageCrossOver({
         isOpen,
         price: shortTermTrend.average,
         stopLoss: longTermTrend.average,
+        takeProfit: calculateTakeProfit({
+          direction: tradeSignal,
+          instrument,
+          price: shortTermTrend.average,
+          stopLoss: longTermTrend.average,
+        }),
       },
       instrument,
       reasons: [

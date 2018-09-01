@@ -27,6 +27,7 @@ type CreateOrderRecommendation = {|
     isOpen: false,
     price: number,
     stopLoss: number,
+    takeProfit: number,
   |},
   instrument: InstrumentName,
   reasons: Array<string>,

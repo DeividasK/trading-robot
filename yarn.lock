@@ -1929,6 +1929,10 @@ decamelize@^2.0.0:
   dependencies:
     xregexp "4.0.0"
 
+decimal.js-light@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/decimal.js-light/-/decimal.js-light-2.4.1.tgz#3260d025fa504f30b94b0ef8721f0b4d37dcfc72"
+
 decode-uri-component@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"

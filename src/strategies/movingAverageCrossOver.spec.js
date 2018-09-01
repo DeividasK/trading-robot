@@ -115,6 +115,7 @@ describe("movingAverageCrossOver", () => {
               isOpen: false,
               price: 0.89292,
               stopLoss: 0.89525,
+              takeProfit: 0.89,
             },
             instrument: "EUR_GBP",
             reasons: [
@@ -285,6 +286,7 @@ describe("movingAverageCrossOver", () => {
             isOpen: false,
             price: 0.89687,
             stopLoss: 0.89375,
+            takeProfit: 0.9,
           },
           instrument: "EUR_GBP",
           reasons: [

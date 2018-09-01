@@ -33,6 +33,7 @@ describe("logTradeRecommendation", () => {
         isOpen: false,
         price: 0.89682,
         stopLoss: 0.8918,
+        takeProfit: 0.905,
       },
     };
 

@@ -3,6 +3,7 @@
 
 # 3rd party libs
 node_modules
+yarn-error.log
 
 # Auto-generated
 dist
