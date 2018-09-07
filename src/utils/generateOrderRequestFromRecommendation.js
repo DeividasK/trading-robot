@@ -1,6 +1,6 @@
 export function generateOrderRequestFromRecommendation(
   tradeRecommendation: CreateOrderRecommendation,
-): StopOrderRequest | LimitOrderRequest {
+): StopOrderRequest {
   if (
     tradeRecommendation.signal === "sell" &&
     tradeRecommendation.conditions.isOpen === false
@@ -25,10 +25,10 @@ export function generateOrderRequestFromRecommendation(
     tradeRecommendation.signal === "buy" &&
     tradeRecommendation.conditions.isOpen === false
   ) {
-    const orderRequest: LimitOrderRequest = {
+    const orderRequest: StopOrderRequest = {
       units: "1",
       instrument: tradeRecommendation.instrument,
-      type: "LIMIT",
+      type: "STOP",
       price: tradeRecommendation.conditions.price.toString(),
       stopLossOnFill: {
         price: tradeRecommendation.conditions.stopLoss.toString(),

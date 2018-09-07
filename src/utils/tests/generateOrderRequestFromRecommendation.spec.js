@@ -54,7 +54,7 @@ describe("generateOrderRequestFromRecommendation", () => {
     const expectedOrderRequest = {
       units: "1",
       instrument: "EUR_GBP",
-      type: "LIMIT",
+      type: "STOP",
       price: "0.89525",
       stopLossOnFill: {
         price: "0.89292",

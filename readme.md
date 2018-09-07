@@ -13,11 +13,12 @@ Code is hosted on an AWS Lambda
 
 (xx/08/2018) Open a trade with a correct stop-loss
 (01/09/2018) Specify a trading account
+(01/09/2018) Add limit order to the MACO strategy
 
 ### To do list
 
-- Add limit order to the MACO strategy
 - Implement backtesting functionality
+- Do not issue trades during set hours (weekends)
 - Add MACO strategy description
 - Proper position sizing
 - Update a stop-loss of an open trade (small)
