@@ -33,3 +33,7 @@ Code is hosted on an AWS Lambda
 ### Commands
 
 - `yarn logs:day` - creates "logs.txt" file with the logs for the last 24h
+
+### Misc
+
+- Node 8.x is required, because `Replay` doesn't work with Node 9/10 and real network requests are made.
